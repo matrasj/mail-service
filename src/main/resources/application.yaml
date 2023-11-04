@@ -1,0 +1,38 @@
+# Server
+server:
+  port: 8080
+
+spring:
+  # Kafka
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: mail-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    properties:
+      spring.json.trusted.packages: "*"
+  topic:
+    registrations:
+      name: registration_events
+      group-id: registration_events_mailing
+  # Mail
+  mail:
+    host: localhost
+    port: 1025
+    username: hello
+    password: hello
+    properties:
+      mail:
+        smtp:
+          ssl.trust: "*"
+          auth: true
+          starttls.enable: true
+          connectiontimeout: 5000
+
+# Properties
+email:
+  properties:
+    confirmation-token-url: http://localhost:8081/api/auth/confirmation/token
+    our-email: jkob.matras@gmail.com
